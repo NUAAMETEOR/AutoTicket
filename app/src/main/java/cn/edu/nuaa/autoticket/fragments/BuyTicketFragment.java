@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
 
 import cn.edu.nuaa.autoticket.R;
 import cn.edu.nuaa.autoticket.activities.BaseFragmentActivity;
@@ -25,14 +26,14 @@ public class BuyTicketFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.buy_ticket_fragment, container, false);
-        Activity activity=getActivity();
-        int rotation = BaseFragmentActivity.getScreenOrientation(activity);
-        Drawable drawable=null;
+        View     v        = inflater.inflate(R.layout.buy_ticket_fragment, container, false);
+        Activity activity = getActivity();
+        int      rotation = BaseFragmentActivity.getScreenOrientation(activity);
+        Drawable drawable = null;
         if (rotation == Surface.ROTATION_180 || rotation == Surface.ROTATION_0) {
-            drawable=ContextCompat.getDrawable(getActivity(), R.drawable.main_v);
+            drawable = ContextCompat.getDrawable(getActivity(), R.drawable.main_v);
         } else {
-            drawable=ContextCompat.getDrawable(getActivity(), R.drawable.main_h);
+            drawable = ContextCompat.getDrawable(getActivity(), R.drawable.main_h);
         }
         v.setBackground(drawable);
         return v;
@@ -76,7 +77,7 @@ public class BuyTicketFragment extends Fragment {
      */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.buy_ticket_fragment_menu,menu);
+        inflater.inflate(R.menu.buy_ticket_fragment_menu, menu);
     }
 
     /**
@@ -98,5 +99,11 @@ public class BuyTicketFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initAuxiliary(View v) {
+        TableLayout tableLayout = v.findViewById(R.id.auxiliary);
+        int childCount = tableLayout.getChildCount();
+
     }
 }

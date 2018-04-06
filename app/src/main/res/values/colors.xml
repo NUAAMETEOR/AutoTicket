@@ -6,4 +6,5 @@
     <color name="colorBk">#c1ffffff</color>
     <color name="start">#acacac</color>
     <color name="end">#cccccc</color>
+    <color name="buttonBk">#7f2e64d4</color>
 </resources>
