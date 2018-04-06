@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/buy_ticket"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--辅助功能-->
     <TableLayout
-        android:id="@+id/tableLayout2"
+        android:id="@+id/auxiliary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -42,7 +42,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/auxiliary"
         app:layout_constraintVertical_bias="0.0">
 
         <android.support.constraint.Guideline
@@ -52,6 +52,7 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
 
+        <!--起点和终点-->
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
@@ -68,6 +69,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
 
+            <!--起点-->
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
@@ -76,9 +78,11 @@
                 android:gravity="center"
                 android:text="南京"
                 android:textAlignment="center"
+                android:textColor="@android:color/black"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
+            <!--起点终点互换图标-->
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="wrap_content"
@@ -86,6 +90,7 @@
                 android:layout_weight="0"
                 app:srcCompat="@drawable/exchange" />
 
+            <!--终点-->
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
@@ -93,12 +98,13 @@
                 android:layout_weight="1"
                 android:text="上海"
                 android:textAlignment="center"
+                android:textColor="@android:color/black"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
 
-        <!--<include layout="@layout/divider" />-->
+        <!--水平分割线-->
         <LinearLayout
             android:id="@+id/div1"
             android:layout_width="0dp"
@@ -181,6 +187,7 @@
                 android:layout_marginStart="8dp"
                 android:text="12月"
                 android:textStyle="bold"
+                android:textColor="@android:color/black"
                 app:layout_constraintBottom_toBottomOf="@+id/textView6"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintHorizontal_bias="0.66"
@@ -197,6 +204,7 @@
                 android:layout_marginStart="8dp"
                 android:text="31"
                 android:textAlignment="center"
+                android:textColor="@android:color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -207,7 +215,7 @@
 
             <!--垂直分割线-->
             <View
-                android:id="@+id/view"
+                android:id="@+id/divv1"
                 android:layout_width="1dp"
                 android:layout_height="0dp"
                 android:layout_marginBottom="8dp"
@@ -262,6 +270,7 @@
                 android:text="00:00-24:00"
                 android:textAlignment="textStart"
                 android:textStyle="bold"
+                android:textColor="@android:color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.6"
@@ -287,20 +296,209 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout3"
+        <!--座位选择-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/seat"
             android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_marginBottom="8dp"
+            android:layout_height="50dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/div2"
+            app:layout_constraintVertical_bias="0.0">
+
+            <!--参考中轴线-->
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <!--席别标题-->
+            <TextView
+                android:id="@+id/seat_type_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:text="席别"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.100000024" />
+
+            <!--席别内容-->
+            <TextView
+                android:id="@+id/seat_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:text="不限"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline6"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/seat_type_title"
+                app:layout_constraintVertical_bias="0.3" />
+
+            <!--垂直分割线-->
+            <View
+                android:id="@+id/divv2"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <!--学生座选项-->
+            <CheckBox
+                android:id="@+id/student"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:text="学生"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/guideline6"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <!--水平分割线-->
+        <LinearLayout
+            android:id="@+id/div3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/divider"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/div2"
-            app:layout_constraintVertical_bias="0.0"></LinearLayout>
+            app:layout_constraintTop_toBottomOf="@+id/seat"
+            app:layout_constraintVertical_bias="0.0">
+
+        </LinearLayout>
+
+        <!--列车类别-->
+        <TableLayout
+            android:id="@+id/train_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:stretchColumns="*"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/div3"
+            app:layout_constraintVertical_bias="0.0">
+
+            <TableRow >
+
+                <TextView
+                    android:id="@+id/all_train"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="全部"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:padding="5dp"/>
+
+                <TextView
+                    android:id="@+id/high_speed_train"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="高铁/动车"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:padding="5dp"/>
+
+                <TextView
+                    android:id="@+id/normal_train"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="普通列车"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:padding="5dp"/>
+            </TableRow>
+        </TableLayout>
+
+        <!--水平分割线-->
+        <LinearLayout
+            android:id="@+id/div4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/divider"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/train_type"
+            app:layout_constraintVertical_bias="0.0">
+
+        </LinearLayout>
+
+        <!--查询按钮-->
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/holo_purple"
+            android:text="@string/query_button_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/div4"
+            app:layout_constraintVertical_bias="0.1" />
 
     </android.support.constraint.ConstraintLayout>
 

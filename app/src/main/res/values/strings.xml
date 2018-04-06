@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">AutoTicket</string>
     <string name="app_message_title">消息</string>
+    <string name="query_button_text">查询</string>
 </resources>
