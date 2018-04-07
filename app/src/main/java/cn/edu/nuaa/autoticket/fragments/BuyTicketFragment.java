@@ -1,6 +1,7 @@
 package cn.edu.nuaa.autoticket.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,7 +14,11 @@ import android.view.MenuItem;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import cn.edu.nuaa.autoticket.R;
 import cn.edu.nuaa.autoticket.activities.BaseFragmentActivity;
@@ -36,6 +41,7 @@ public class BuyTicketFragment extends Fragment {
             drawable = ContextCompat.getDrawable(getActivity(), R.drawable.main_h);
         }
         v.setBackground(drawable);
+        initAuxiliary(v);
         return v;
     }
 
@@ -103,7 +109,33 @@ public class BuyTicketFragment extends Fragment {
 
     private void initAuxiliary(View v) {
         TableLayout tableLayout = v.findViewById(R.id.auxiliary);
-        int childCount = tableLayout.getChildCount();
-
+        TableRow    tableRow    = (TableRow) tableLayout.getChildAt(0);
+        Context context=getActivity();
+        int         cellCount   = tableRow.getChildCount();
+        for (int i = 0; i < cellCount; i++) {
+            LinearLayout cell      = (LinearLayout) tableRow.getChildAt(i);
+            ImageView    imageView = (ImageView) cell.getChildAt(0);
+            TextView     textView  = (TextView) cell.getChildAt(1);
+            switch (i) {
+                case 0:
+                    textView.setText(R.string.current_location);
+                    imageView.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.luobing));
+                    break;
+                case 1:
+                    textView.setText(R.string.travel_record);
+                    imageView.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.luff));
+                    break;
+                case 2:
+                    textView.setText(R.string.entertainment);
+                    imageView.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.exchange));
+                    break;
+                case 3:
+                    textView.setText(R.string.wiki);
+                    imageView.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.shanzhi));
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
