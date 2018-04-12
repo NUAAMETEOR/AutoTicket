@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/buy_ticket"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -187,8 +186,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:text="12月"
-                android:textStyle="bold"
                 android:textColor="@android:color/black"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/day"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintHorizontal_bias="0.66"
@@ -232,7 +231,7 @@
 
             <!--出发时间标题-->
             <TextView
-                android:id="@+id/time"
+                android:id="@+id/time_title"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -259,24 +258,41 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline5"
-                app:layout_constraintTop_toBottomOf="@+id/time"
+                app:layout_constraintTop_toBottomOf="@+id/time_title"
                 app:srcCompat="@drawable/time" />
 
             <!--出发时间内容-->
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="00:00-24:00"
                 android:textAlignment="textStart"
-                android:textStyle="bold"
                 android:textColor="@android:color/black"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.6"
                 app:layout_constraintStart_toStartOf="@+id/guideline5"
-                app:layout_constraintTop_toBottomOf="@+id/time" />
+                app:layout_constraintTop_toBottomOf="@+id/time_title" />
+
+            <TextView
+                android:id="@+id/year"
+                android:layout_width="22dp"
+                android:layout_height="20dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="TextView"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintHorizontal_bias="0.901"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.75" />
         </android.support.constraint.ConstraintLayout>
 
         <!--水平分割线-->
@@ -345,8 +361,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:text="@string/seat_all"
-                android:textStyle="bold"
                 android:textColor="@android:color/black"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline6"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -378,8 +394,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:text="@string/student"
-                android:textStyle="bold"
                 android:textColor="@android:color/black"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -422,23 +438,23 @@
             app:layout_constraintTop_toBottomOf="@id/div3"
             app:layout_constraintVertical_bias="0.0">
 
-            <TableRow >
+            <TableRow>
 
                 <TextView
                     android:id="@+id/all_train"
-                    android:text="@string/all_train"
+                    style="@style/train_style"
                     android:background="@drawable/text_select"
-                    style="@style/train_style"/>
+                    android:text="@string/all_train" />
 
                 <TextView
                     android:id="@+id/high_speed_train"
-                    android:text="@string/high_speed_train"
-                    style="@style/train_style"/>
+                    style="@style/train_style"
+                    android:text="@string/high_speed_train" />
 
                 <TextView
                     android:id="@+id/normal_train"
-                    android:text="@string/normal_train"
-                    style="@style/train_style"/>
+                    style="@style/train_style"
+                    android:text="@string/normal_train" />
             </TableRow>
         </TableLayout>
 

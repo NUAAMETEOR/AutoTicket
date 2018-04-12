@@ -12,6 +12,15 @@
     <string name="normal_train">普通列车</string>
     <string name="student">学生票</string>
     <string name="seat_all">不限</string>
+    <string name="seat_commercial">商务座</string>
+    <string name="seat_special">特等座</string>
+    <string name="seat_advanced">一等座</string>
+    <string name="seat_normal">二等座</string>
+    <string name="seat_advance_soft_">高级软卧</string>
+    <string name="seat_soft_">软卧</string>
+    <string name="seat_hard_">硬卧</string>
+    <string name="seat_soft">软座</string>
+    <string name="seat_hard">硬座</string>
     <string name="seat_title">席别</string>
     <string name="deliver_date">出发日期</string>
     <string name="deliver_time">出发时间</string>
