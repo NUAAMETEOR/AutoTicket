@@ -11,6 +11,7 @@ import java.util.Map;
 
 import cn.edu.nuaa.autoticket.R;
 import cn.edu.nuaa.autoticket.activities.MainActivity;
+import cn.edu.nuaa.autoticket.application.AutoTaskApplication;
 import cn.edu.nuaa.autoticket.common.Utils;
 
 /**

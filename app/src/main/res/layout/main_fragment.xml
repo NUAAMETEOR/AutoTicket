@@ -139,6 +139,22 @@
             app:layout_constraintVertical_bias="0.0">
 
             <!--参考中轴线-->
+            <TextView
+                android:id="@+id/month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:text="12"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/day"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintHorizontal_bias="0.66"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5"
+                app:layout_constraintVertical_bias="0.82" />
+
             <android.support.constraint.Guideline
                 android:id="@+id/guideline5"
                 android:layout_width="wrap_content"
@@ -180,17 +196,16 @@
 
             <!--出发日期月内容-->
             <TextView
-                android:id="@+id/month"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:text="12月"
+                android:text="月"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/day"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
-                app:layout_constraintHorizontal_bias="0.66"
+                app:layout_constraintHorizontal_bias="0.8"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView5"
                 app:layout_constraintVertical_bias="0.82" />

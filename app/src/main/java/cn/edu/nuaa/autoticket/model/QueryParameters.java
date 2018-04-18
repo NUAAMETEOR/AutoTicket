@@ -9,12 +9,11 @@ package cn.edu.nuaa.autoticket.model;
 
 import com.google.gson.Gson;
 
-import java.sql.Timestamp;
-
 public class QueryParameters {
     private String    startCity;
     private String    destCity;
-    private Timestamp deliverTimestamp;
+    private String    deliverDay;
+    private String    deliverTime;
     private SeatType  seatType;
     private boolean   studentFlag;
     private TrainType trainType;
@@ -35,12 +34,12 @@ public class QueryParameters {
         this.destCity = destCity;
     }
 
-    public Timestamp getDeliverTimestamp() {
-        return deliverTimestamp;
+    public String getDeliverDay() {
+        return deliverDay;
     }
 
-    public void setDeliverTimestamp(Timestamp deliverTimestamp) {
-        this.deliverTimestamp = deliverTimestamp;
+    public void setDeliverDay(String deliverDay) {
+        this.deliverDay = deliverDay;
     }
 
     public SeatType getSeatType() {
