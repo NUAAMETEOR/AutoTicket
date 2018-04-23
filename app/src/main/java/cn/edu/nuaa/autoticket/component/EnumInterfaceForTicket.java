@@ -9,4 +9,6 @@ package cn.edu.nuaa.autoticket.component;
 
 public interface EnumInterfaceForTicket {
     int getResourceId();
+
+    String getFilterString();
 }

@@ -29,6 +29,9 @@ public class TrainTypeClickListener implements View.OnClickListener {
         put(R.id.normal_train, null);
     }};
 
+    public static Map<Integer, Drawable> getClickState() {
+        return clickState;
+    }
 
     @Override
 

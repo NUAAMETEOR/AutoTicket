@@ -5,10 +5,11 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,6 +17,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Properties;
+
+import cn.edu.nuaa.autoticket.application.AutoTaskApplication;
 
 /**
  * @author Meteor
@@ -25,7 +28,8 @@ import java.util.Properties;
  * @Date 2018/4/14 20:39
  */
 public class AsynTicketFetcher extends AsyncTask<QueryParameters, Integer, ArrayList<TicketInformation>> {
-    private static final String QUERY_WEB_SITE = "https://kyfw.12306.cn/otn/leftTicket/query";
+    private static final String     QUERY_WEB_SITE = "https://kyfw.12306.cn/otn/leftTicket/query";
+    public static        Properties properties     = getCityCode();
     private QueryParameters queryParameter;
     private Activity        context;
 
@@ -33,12 +37,25 @@ public class AsynTicketFetcher extends AsyncTask<QueryParameters, Integer, Array
         this.context = context;
     }
 
+    private static Properties getCityCode() {
+        Properties  properties  = new Properties();
+        InputStream inputStream = null;
+        try {
+            inputStream = AutoTaskApplication.getAppContext().getAssets().open("city_code.properties");
+            properties.load(inputStream);
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return properties;
+    }
+
     @Override
     protected ArrayList<TicketInformation> doInBackground(QueryParameters... queryParameters) {
         this.queryParameter = queryParameters[0];
         String result = getTrainInformation();
         Log.d(this.getClass().getName(), result);
-        return null;
+        return parseTrainInformation(result);
     }
 
     @Override
@@ -66,29 +83,24 @@ public class AsynTicketFetcher extends AsyncTask<QueryParameters, Integer, Array
         super.onCancelled();
     }
 
-    private String makeUrl() {
-        Properties properties = getCityCode();
-//        ResourceBundle resourceBundle = getCityCode();
-//        String         startCityCode  = resourceBundle.getString(queryParameter.getStartCity());
-//        String         destCityCode   = resourceBundle.getString(queryParameter.getDestCity());
+    private String makeUrlString() {
+//        Properties properties    = getCityCode();
         String startCityCode = properties.getProperty(queryParameter.getStartCity());
         String destCityCode  = properties.getProperty(queryParameter.getDestCity());
         String url = Uri.parse(QUERY_WEB_SITE).buildUpon().appendQueryParameter("leftTicketDTO.train_date", "2018-04-30"/*queryParameter.getDeliverDay()*/)
                 .appendQueryParameter("leftTicketDTO.from_station", startCityCode).appendQueryParameter("leftTicketDTO.to_station", destCityCode)
                 .appendQueryParameter("purpose_codes", "ADULT").build().toString();
-        //String url = "https://kyfw.12306.cn/otn/leftTicket/query?leftTicketDTO.train_date=$s&leftTicketDTO.from_station=%s&leftTicketDTO.to_station=%s&purpose_codes=ADULT";
-//        String.format(url, queryParameters.getDeliverDay(), startCityCode, destCityCode);
         return url;
     }
 
     private String getTrainInformation() {
-        HttpURLConnection     urlConnection         = null;
-        InputStream           inputStream           = null;
-        BufferedReader        reader                = null;
-        StringBuilder         stringBuilder         = null;
+        HttpURLConnection urlConnection = null;
+        InputStream       inputStream   = null;
+        BufferedReader    reader        = null;
+        StringBuilder     stringBuilder = null;
         try {
             //"https://kyfw.12306.cn/otn/leftTicket/query?leftTicketDTO.train_date=2018-04-30&leftTicketDTO.from_station=NJH&leftTicketDTO.to_station=SHH&purpose_codes=ADULT"
-            URL url = new URL(makeUrl());
+            URL url = new URL(makeUrlString());
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.setConnectTimeout(10000);
@@ -124,81 +136,39 @@ public class AsynTicketFetcher extends AsyncTask<QueryParameters, Integer, Array
         return null;
     }
 
-    private Properties getCityCode() {
-        Properties  properties  = new Properties();
-        InputStream inputStream = null;
-//        ResourceBundle resourceBundle = null;
-        try {
-            inputStream = context.getAssets().open("city_code.properties");
-//            resourceBundle = new PropertyResourceBundle(inputStream);
-            properties.load(inputStream);
-            inputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+    private ArrayList<TicketInformation> parseTrainInformation(String trainInfo) {
+        JsonParser                   jsonParser    = new JsonParser();
+        JsonObject                   dataObject    = jsonParser.parse(trainInfo).getAsJsonObject().getAsJsonObject("data");
+        JsonObject                   addressObject = dataObject.getAsJsonObject("map");
+        JsonArray                    ticketsArray  = dataObject.getAsJsonArray("result");
+        ArrayList<TicketInformation> list          = new ArrayList<>();
+        for (int i = 0; i < ticketsArray.size(); i++) {
+            String ticket = ticketsArray.get(i).getAsString();
+            list.add(resolveTicket(ticket));
         }
-        return properties;
+        return list;
     }
 
-    private void parseTrainInformation(String trainInfo) {
-        Gson gson=new Gson();
-        gson.fromJson(trainInfo, TicketHolder.class);
-        /*var trainObject = JSON.parse(trainStr);
-        if (!trainObject.status) {
-            console.log("train information invalid");
-            return;
-        }
-        var data = trainObject.data;
-        var result = data.result;
-        var flag = data.flag;
-        var map = data.map;
-        var trainnum = result.length;
-        var table = document.getElementById("tb");
-        console.log("receive " + trainnum + " train information");
-        for (var i = 1; i <= trainnum; i++) {
-            var tickect = {};
-            var temp = result[i].split("|");
-
-            tickect.trainId = temp[3];// Train ID
-            tickect.startTime = temp[8];// Start Time
-            tickect.endTime = temp[9];// End Time
-            tickect.totalTime = temp[10];// Total Time
-            tickect.date = temp[13];
-            tickect.ruanwo = temp[23];// 软卧
-            tickect.ruanzuo = temp[24]; // 软座
-            tickect.wuzuo = temp[26];// 无座
-            tickect.yingwo = temp[28]; // 硬卧
-            tickect.yingzuo = temp[29]; // 硬座
-            tickect.scSeat = temp[30];// 二等座
-            tickect.fcSeat = temp[31];// 一等座
-            tickect.bcSeat = temp[32];// 商务座 / 特等座
-            tickect.dongwo = temp[33];// 动卧
-
-            for(var prop in tickect){
-                if(tickect[prop].length==0) {
-                    tickect[prop] = "--";
-                }
-            }
-
-            console.log(tickect);
-            var row=table.insertRow(i);
-            for(var j=0;j<14;j++) {
-                row.insertCell(j);
-            }
-            row.cells[0].innerHTML=tickect.trainId;
-            row.cells[1].innerHTML=tickect.startTime;
-            row.cells[2].innerHTML=tickect.endTime;
-            row.cells[3].innerHTML=tickect.totalTime;
-            row.cells[4].innerHTML=tickect.date;
-            row.cells[5].innerHTML=tickect.ruanwo;
-            row.cells[6].innerHTML=tickect.ruanzuo;
-            row.cells[7].innerHTML=tickect.wuzuo;
-            row.cells[8].innerHTML=tickect.yingwo;
-            row.cells[9].innerHTML=tickect.yingzuo;
-            row.cells[10].innerHTML=tickect.scSeat;
-            row.cells[11].innerHTML=tickect.fcSeat;
-            row.cells[12].innerHTML=tickect.bcSeat;
-            row.cells[13].innerHTML=tickect.dongwo;
-        }
-    }*/
+    private TicketInformation resolveTicket(String ticketInfo) {
+        TicketInformation ticket = new TicketInformation();
+        String[]          split  = ticketInfo.split("\\|");
+        ticket.setTrainId(split[3]); // Train ID
+        ticket.setStartTime(split[8]); // Start Time
+        ticket.setEndTime(split[9]); // End Time
+        ticket.setTotalTime(split[10]);// Total Time
+        ticket.setStartDate(split[13]);
+        ticket.setSeat_advance_soft_(split[20]);//高级软卧
+        ticket.setSeat_other(split[22]);//其他
+        ticket.setSeatSoft_(split[23]); // 软卧
+        ticket.setSeatSoft(split[24]);  // 软座
+        ticket.setSeat_null(split[26]);// 无座
+        ticket.setSeatHard_(split[28]);  // 硬卧
+        ticket.setSeatHard(split[29]);  // 硬座
+        ticket.setSeat_normal(split[30]);// 二等座
+        ticket.setSeat_advanced(split[31]); // 一等座
+        ticket.setSeat_commercial(split[32]); // 商务座 / 特等座
+        ticket.setSeat_high_(split[33]); // 动卧
+        ticket.setEmptyInformation();
+        return ticket;
     }
 }

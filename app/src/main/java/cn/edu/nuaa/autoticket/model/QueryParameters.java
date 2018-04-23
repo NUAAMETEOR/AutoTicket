@@ -18,6 +18,18 @@ public class QueryParameters {
     private boolean   studentFlag;
     private TrainType trainType;
 
+    public String getDeliverTime() {
+        return deliverTime;
+    }
+
+    public void setDeliverTime(String deliverTime) {
+        this.deliverTime = deliverTime;
+    }
+
+    public boolean isStudentFlag() {
+        return studentFlag;
+    }
+
     public String getStartCity() {
         return startCity;
     }

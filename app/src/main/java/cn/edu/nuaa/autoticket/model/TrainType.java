@@ -16,15 +16,30 @@ public enum TrainType implements EnumInterfaceForTicket {
         public int getResourceId() {
             return R.string.all_train;
         }
+
+        @Override
+        public String getFilterString() {
+            return ".+";
+        }
     },HIGH_SPEED_TRAIN {
         @Override
         public int getResourceId() {
             return R.string.high_speed_train;
         }
+
+        @Override
+        public String getFilterString() {
+            return "^(D|G).+";
+        }
     },NORMAL_TRAIN {
         @Override
         public int getResourceId() {
             return R.string.normal_train;
+        }
+
+        @Override
+        public String getFilterString() {
+            return "^[^[DG]].+";
         }
     }
 }
